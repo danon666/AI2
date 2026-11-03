@@ -1,0 +1,32 @@
+App\Entity\Measurement:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+              fields: [date, location]
+              errorPath: date
+              message: 'Dla tej lokalizacji istnieje już pomiar z tego dnia.'
+              groups: [create, edit]
+
+    properties:
+        date:
+            - NotBlank:
+                  message: 'Podaj datę pomiaru.'
+                  groups: [create, edit]
+            - LessThanOrEqual:
+                  value: today
+                  message: 'Data pomiaru nie może być z przyszłości.'
+                  groups: [create]
+
+        celsius:
+            - NotBlank:
+                  message: 'Podaj temperaturę.'
+                  groups: [create, edit]
+            - Range:
+                  min: -90
+                  max: 60
+                  notInRangeMessage: 'Temperatura musi być z przedziału od {{ min }} do {{ max }}°C.'
+                  groups: [create, edit]
+
+        location:
+            - NotBlank:
+                  message: 'Wybierz lokalizację.'
+                  groups: [create]
