@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}Text TextInputController! {%  endblock %}
+
+{% block body %}
+    <h1>Formularz tekstowy</h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit">{{ button_label|default('Wyślij') }}</button>
+    {{ form_end(form) }}
+
+    {% if data is not empty %}
+        <h2>Wprowadzony tekst</h2>
+        <p>{{ data.text }}</p>
+        <p>{{ data.text|raw }}</p>
+    {%  endif %}
+{% endblock %}
